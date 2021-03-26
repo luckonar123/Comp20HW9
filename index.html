@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSON Songlist Part 2</title>
+    <script type = "text/javascript" src ="songs.json"> </script>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+
+<body>
+    
+    <br> <div id = 'Jstuff'> </div>
+    
+    <select id = "select">
+        <option value = "All"> All </option>
+		<option value = "Rap"> Rap </option>
+		<option value = "Pop"> Pop </option>
+		<option value = "Bossa Nova"> Bossa Nova </option>
+		<option value = "Alternative"> Alternative </option>
+		<option value = "Rock"> Rock </option>
+
+	</select>
+	<button onclick="filter()"> Filter </button>	
+    
+    
+    
+    <br> <div id = 'stuff'> </div>
+        <script language="javascript">
+        
+
+    $.get( "https://luckonar123.github.io/Comp20HW9/songs.json", 
+    function( data ) 
+        {
+            var str = JSON.stringify(data);
+            document.getElementById("Jstuff").innerHTML = str;
+            
+            str= "<ul>";
+            
+            print();
+            function print(){
+           data.forEach(function(song) 
+           { 
+               str += "<li>" 
+               + song.Title + "<br>" 
+               + "Artist: " + song.Name + "<br>"
+               + "Genre: " + song.Genre + "<br>"
+               + "Year: " + song.Release + "<br><br>" + "</li>";
+           }) 
+           str += "</ul>";
+           document.getElementById("stuff").innerHTML = str;
+        }
+        })
+        
+        
+        function filter()
+        {
+            var genr = document.getElementById("select").value;
+            $.get( "https://luckonar123.github.io/Comp20HW9/songs.json", 
+            function( data ) 
+                {
+                     
+                    var str= "<ul>";
+
+                     data.forEach(function(song) 
+                     { 
+                        if (genr == song.Genre || genr == "All")
+                        {
+                            str += "<li>" 
+                            + song.Title + "<br>" 
+                            + "Artist: " + song.Name + "<br>"
+                            + "Genre: " + song.Genre + "<br>"
+                            + "Year: " + song.Release + "<br><br>" + "</li>";
+                        }
+                     })
+                     str += "</ul>";
+                     document.getElementById("stuff").innerHTML = str;                
+                })
+        }
+        
+        
+    
+    </script>
+
+</body>
+</html>
